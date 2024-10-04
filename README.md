@@ -32,8 +32,7 @@ This model searches for a hyperplane to fit the majority of the points. This mod
 
 
 
-
-#Potential Results and Discussion:
+# Potential Results and Discussion:
 
 Potential Results and Discussion (117 words)
 
@@ -45,7 +44,7 @@ We expect to develop a high efficacy ( > 85% accuracy and > 85% F1 Macro) and li
 
 Calculate per class accuracy based on the digit
 
-#References:
+# References:
 
 [1] X. Chai, T. Cao, Q. He, N. Wang, X. Zhang, X. Shan, Z. Lv, W. Tu, Y. Yang, and J. Zhao, "Brain-computer interface digital prescription for neurological disorders," CNS Neuroscience & Therapeutics, vol. 30, no. 2, pp. e14615, Feb. 2024. doi: 10.1111/cns.14615. PMID: 38358054; PMCID: PMC10867871.
 [2] P.-C. Hu and P.-C. Kuo, "Adaptive learning system for e-learning based on EEG brain signals," in 2017 IEEE 6th Global Conference on Consumer Electronics (GCCE), Nagoya, Japan, 2017, pp. 1-2, doi: 10.1109/GCCE.2017.8229382.
