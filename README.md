@@ -35,11 +35,11 @@ From a sustainability standpoint, we seek to design a light-weight model: minimi
 
 # Gantt Chart:
 
-![gantt](http://johannesq23.github.io/gantt.png)
+![gantt](https://github.com/johannesq23/johannesq23.github.io/blob/main/gantt.png)
 
 # Contribution Chart:
 
-![contribution](http://johannesq23.github.io/contribution.png)
+![contribution](https://github.com/johannesq23/johannesq23.github.io/blob/main/contribution.png)
 
 # References:
 
