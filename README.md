@@ -1,42 +1,37 @@
 # Introduction/Background:
+
 ### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
+
 Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. The dataset includes 4 main sub-datasets for each EEG machine used. Within each subset, there is a “digit” feature corresponding to the digit shown, and all other features are brain activity trackers of various parts of the 19 sections of the brain. There are approximately 100-1,000 tracking channels (each its own feature/column) for each brain region or electrode site (i.e. right frontal region), with at least 10 different electrode sites being monitored.
-Problem Definition (104 words)
-We seek to address the development of a more accurate system of decoding brain signals associated with specific visual stimuli, in this case related to numerical digits. Through our model, it will be possible to predict what digit is being seen by the candidate when given their brain activity.
+
+### Problem Definition
+We seek to develop a more accurate system of decoding brain signals associated with specific visual stimuli, in this case related to numerical digits. Through our model, it will be possible to predict what digit is being seen by the candidate given their brain activity.
 This research will be applicable in proving the feasibility of brain-computer interfaces (BCI’s), which have immense potential for improving quality of life for individuals experiencing disabilities in physical or verbal communication. When methods such as typing, speaking, or gesture-based systems are inaccessible, these BCIs that solely rely on brain activity could minimize the accessibility gap.
 
 
 
 # Proposed Solution:
 
-To predict numbers from EEG readings, an effective solution involves a combination of preprocessing techniques and machine learning models.
-
 ### Data Preprocessing Methods:
-Feature Scaling: EEG data can have varying amplitude ranges, so normalization (e.g., MinMaxScaler from scikit-learn) is essential for standardizing the data. [7]
-Dimensionality Reduction: EEG data often has high dimensionality. Applying Principal Component Analysis (PCA) (PCA from scikit-learn) can reduce noise and prevent overfitting while maintaining key variance. [8]
-Tomek Undersampling: Reducing the frequency of noisy data that does not pertain to detecting digits or dealing with a class imbalance for one particular digit. [9]
+1. Feature Scaling: EEG data has varying amplitude ranges, so normalization (e.g., MinMaxScaler from scikit-learn) is essential for standardization. [7]
+2. Dimensionality Reduction: EEG data often has high dimensionality. Applying Principal Component Analysis (PCA from scikit-learn) reduces noise and prevents overfitting while maintaining key variance. [8]
+3. Aims to reduce the frequency of noisy data that does not pertain to classifying digits or dealing with a class imbalance for one particular digit. [9]
 
 
-
-## Machine Learning Algorithms:
-Since this dataset comes with labels, this will be supervised learning rather than unsupervised learning. There are a variety of classification algorithms that we can use in the scikit-learn library which will meet our needs.
-Random Forest Regressor: This method essentially creates a multitude of decision trees that all come to their own conclusion, where the results are chosen based on majority[10]. This method handles non-linearities well and is resistant to overfitting, making it ideal for complex EEG data with high dimensionalities. 
-XGBoost Regressor: XGBoost adds on smaller learners sequentially, reducing the error down in steps/gradient. XGBoost is efficient and can handle large datasets with high accuracy. However, tuning models such as XGBoost can be tricker, with the number of hyperparameters.[11]
-Support Vector Regression: 
-This model searches for a hyperplane to fit the majority of the points. This model helps against outliers, which may be effective in the EEG’s/brain’s random activity, which makes it a suitable candidate for this project [12].
+### Machine Learning Algorithms:
+Because the dataset features labels that enable supervised learning, some key classification algorithms include:
+1. Random Forest Generator: Creates a multitude of decision trees that all form their own conclusion, where results are chosen based on majority [10]. The algorithm handles non-linearities well and resists overfitting, making it ideal for complex EEG data with high dimensionalities.
+2. XGBoost Regressor: Adds on smaller learners sequentially, reducing the error in steps. XGBoost is efficient and can handle large datasets with high accuracy. However, tuning models such as XGBoost can be trickier, with the number of hyperparameters.[11]
+3. Support Vector Regression: Searches for a hyperplane to fit the majority of the points. It is strong against outliers, an effective attribute due to the EEG’s/brain’s random activity [12].
 
 
 
 # Potential Results and Discussion:
 
-Foremost, we seek to design a high efficacy model. Because our problem manifests as classification, accuracy can be ensured by maximizing accuracy score and top-k accuracy score, which concurrently boosts usability. Similarly, considering the use case of the model in consequential environments, mitigating false positives and negatives can be ensured by maximizing precision, recall, and F1 scores.
+Foremost, we seek to design a high efficacy model. Because our problem manifests as classification, accuracy can be ensured by maximizing accuracy score (both per-class and overall) and top-k accuracy score (all > 85%), which boosts usability. Similarly, considering the use case in high-impact environments, mitigating false positives and negatives can be ensured by maximizing precision, recall, and F1 scores (all > 85%).
 
 From a sustainability standpoint, we seek to design a light-weight model: minimizing model size reduces energy expenditure. Ethically, we seek for the model to be generalizable; not available to just those with resources to acquire custom training data.
-
-We expect to develop a high efficacy ( > 85% accuracy and > 85% F1 Macro) and lightweight model that generalizes to the entire population.
-
-Calculate per class accuracy based on the digit
 
 # Gantt Chart:
 
