@@ -30,8 +30,6 @@ This model searches for a hyperplane to fit the majority of the points. This mod
 
 # Potential Results and Discussion:
 
-Potential Results and Discussion (117 words)
-
 Foremost, we seek to design a high efficacy model. Because our problem manifests as classification, accuracy can be ensured by maximizing accuracy score and top-k accuracy score, which concurrently boosts usability. Similarly, considering the use case of the model in consequential environments, mitigating false positives and negatives can be ensured by maximizing precision, recall, and F1 scores.
 
 From a sustainability standpoint, we seek to design a light-weight model: minimizing model size reduces energy expenditure. Ethically, we seek for the model to be generalizable; not available to just those with resources to acquire custom training data.
