@@ -1,6 +1,6 @@
 # Introduction/Background:
 
-### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022
+### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022 
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
 
 Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. The dataset includes 4 main sub-datasets for each EEG machine used. Within each subset, there is a “digit” feature corresponding to the digit shown, and all other features are brain activity trackers of various parts of the 19 sections of the brain. There are approximately 100-1,000 tracking channels (each its own feature/column) for each brain region or electrode site (i.e. right frontal region), with at least 10 different electrode sites being monitored.
