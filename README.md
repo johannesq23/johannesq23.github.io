@@ -39,7 +39,7 @@ From a sustainability standpoint, we seek to design a light-weight model: minimi
 
 # Contribution Chart:
 
-![contribution](http://johannesq23.github.io/contribution.png)
+![contribution](http://johannesq23.github.io/contributions.png)
 
 # References:
 
