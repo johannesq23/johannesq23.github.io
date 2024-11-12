@@ -1,8 +1,5 @@
-# Introduction/Background:
-
 ### Our Data Set
 https://huggingface.co/datasets/DavidVivancos/MindBigData2022
-
 
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
 
@@ -20,13 +17,13 @@ Post preprocessing, we determined a datapoint to be composed of the max, min, me
 
 ### Results and Discussion
 
-# Logistic Regression:
+## Logistic Regression:
 Accuracy Score: 11.15%
 F1 Score: 9.79%
 
 ![logistic](https://github.com/johannesq23/johannesq23.github.io/blob/main/Logistic%20Regression%20Confusion%20Matrix.png)
 
-# Random Forest:
+## Random Forest:
 Accuracy: 9.77%
 F1 Score: 9.72%
 
@@ -40,15 +37,15 @@ These models were limited by the overly simplified representation of EEG signals
 
 In the future, we plan to make several enhancements. First, we will incorporate Fourier Transforms to shift EEG data into the frequency domain, allowing us to capture patterns in specific frequency bands associated with cognitive states. By applying PCA on these Fourier-transformed features, we hope to retain important patterns while reducing dimensionality. Additionally, we plan to explore Recurrent Neural Networks (RNNs) or Long Short-Term Memory networks (LSTMs) as they are designed for time-series data and can capture sequential dependencies, as logistic regression and random forest are used for independent data points.
 
-# Gantt Chart:
+### Gantt Chart:
 
 ![gantt](http://johannesq23.github.io/gantt.png)
 
-# Contribution Chart:
+### Contribution Chart:
 
 ![contribution](http://johannesq23.github.io/contributions.png)
 
-# References:
+### References:
 
 [1] X. Chai, T. Cao, Q. He, N. Wang, X. Zhang, X. Shan, Z. Lv, W. Tu, Y. Yang, and J. Zhao, "Brain-computer interface digital prescription for neurological disorders," CNS Neuroscience & Therapeutics, vol. 30, no. 2, pp. e14615, Feb. 2024. doi: 10.1111/cns.14615. PMID: 38358054; PMCID: PMC10867871.
 
