@@ -1,5 +1,15 @@
+# Directories/Files:
+/dir/: Root folder for all other files and folders for the project 
+/dir/data/: Folder that stores the downloaded .txt data files
+/dir/models.py: Intializes and defines run methods for ML models
+/dir/requirements.txt: Defines package/library dependencies 
+/dir/testing.ipynb: Jupyter notebook that includes data cleaning, feature engineering/reduction, and training/testing the ML models on the cleaned data frame
+
+# Introduction/Background:
+
 ### Our Data Set
 https://huggingface.co/datasets/DavidVivancos/MindBigData2022
+
 
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
 
