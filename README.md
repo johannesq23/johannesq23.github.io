@@ -1,4 +1,4 @@
-### Our Data Set
+## Introduction and Background
 https://huggingface.co/datasets/DavidVivancos/MindBigData2022
 
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
@@ -6,24 +6,24 @@ Interpreting brain signals as responses to visual stimuli is an exciting topic o
 Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. The dataset includes 4 main sub-datasets for each EEG machine used. For each subset, there exists a “digit” feature corresponding to the digit shown, an “event id” to catalog unique number-showing events, a “brain region” to map the location from where an electrode made its reading, and ~250 columns of time series data sampled at 128 Hz that correspond to the electric intensities measured from the given “brain region”. Therefore, for our purposes, a datapoint can be considered all rows which share the same “event id” which is 19 for the full data set and 5 for the exploratory data.
 
 
-### Problem Definition
+## Problem Definition
 We seek to develop a more accurate system of decoding brain signals associated with specific visual stimuli, in this case related to numerical digits. Through our model, it will be possible to predict what digit is being seen by the candidate given their brain activity.
 This research will be applicable in proving the feasibility of brain-computer interfaces (BCI’s), which have immense potential for improving quality of life for individuals experiencing disabilities in physical or verbal communication. When methods such as typing, speaking, or gesture-based systems are inaccessible, these BCIs that solely rely on brain activity could minimize the accessibility gap.
 
-### Methods
+## Methods
 Because the electrode data is formatted as a time series, the feature columns did not directly correspond to a measurable feature. Thus, classical feature reduction techniques such as PCA would not be helpful in determining which “time slices” are most valuable to analyze. Conversely, it would make more sense to consider all “time slices” from a given electrode reading during an event. Therefore, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range. Following, because a datapoint can be characterized as all rows that share an “event id”, we further preprocessed the data by concatenating rows from different brain regions that share an “event id.” 
 
 Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression and Random Forest supervised learning models on the preprocessed data.
 
-### Results and Discussion
+## Results and Discussion
 
-## Logistic Regression:
+### Logistic Regression:
 Accuracy Score: 11.15%
 F1 Score: 9.79%
 
 ![logistic](https://github.com/johannesq23/johannesq23.github.io/blob/main/Logistic%20Regression%20Confusion%20Matrix.png)
 
-## Random Forest:
+### Random Forest:
 Accuracy: 9.77%
 F1 Score: 9.72%
 
@@ -37,15 +37,15 @@ These models were limited by the overly simplified representation of EEG signals
 
 In the future, we plan to make several enhancements. First, we will incorporate Fourier Transforms to shift EEG data into the frequency domain, allowing us to capture patterns in specific frequency bands associated with cognitive states. By applying PCA on these Fourier-transformed features, we hope to retain important patterns while reducing dimensionality. Additionally, we plan to explore Recurrent Neural Networks (RNNs) or Long Short-Term Memory networks (LSTMs) as they are designed for time-series data and can capture sequential dependencies, as logistic regression and random forest are used for independent data points.
 
-### Gantt Chart:
+## Gantt Chart:
 
 ![gantt](http://johannesq23.github.io/gantt.png)
 
-### Contribution Chart:
+## Contribution Chart:
 
 ![contribution](http://johannesq23.github.io/contributions.png)
 
-### References:
+## References:
 
 [1] X. Chai, T. Cao, Q. He, N. Wang, X. Zhang, X. Shan, Z. Lv, W. Tu, Y. Yang, and J. Zhao, "Brain-computer interface digital prescription for neurological disorders," CNS Neuroscience & Therapeutics, vol. 30, no. 2, pp. e14615, Feb. 2024. doi: 10.1111/cns.14615. PMID: 38358054; PMCID: PMC10867871.
 
@@ -70,5 +70,3 @@ In the future, we plan to make several enhancements. First, we will incorporate 
 [11] What is XGBoost?. NVIDIA Data Science Glossary. (n.d.). https://www.nvidia.com/en-us/glossary/xgboost/ 
 
 [12] GeeksforGeeks. (2023, January 30). Support vector regression (SVR) using linear and non-linear kernels in Scikit learn. https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/ 
-
-
