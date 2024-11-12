@@ -13,7 +13,7 @@ This research will be applicable in proving the feasibility of brain-computer in
 ### Methods
 Because the electrode data is formatted as a time series, the feature columns did not directly correspond to a measurable feature. Thus, classical feature reduction techniques such as PCA would not be helpful in determining which “time slices” are most valuable to analyze. Conversely, it would make more sense to consider all “time slices” from a given electrode reading during an event. Therefore, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range. Following, because a datapoint can be characterized as all rows that share an “event id”, we further preprocessed the data by concatenating rows from different brain regions that share an “event id.” 
 
-Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression, Random Forest, and Gradient Boosting supervised learning models on the preprocessed data.
+Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression and Random Forest supervised learning models on the preprocessed data.
 
 ### Results and Discussion
 
