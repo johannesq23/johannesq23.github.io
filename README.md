@@ -32,7 +32,25 @@ Post preprocessing, we determined a datapoint to be composed of the max, min, me
 
 ### Results and Discussion
 
-/* TODO */
+# Logistic Regression:
+Accuracy Score: 11.15%
+F1 Score: 9.79%
+
+![logistic](https://github.com/johannesq23/johannesq23.github.io/blob/main/Logistic%20Regression%20Confusion%20Matrix.png)
+
+# Random Forest:
+Accuracy: 9.77%
+F1 Score: 9.72%
+
+![randomforest](https://github.com/johannesq23/johannesq23.github.io/blob/main/Random%20Forest%20Confusion%20Matrix.png)
+
+We tested our data on two supervised classifiers: Logistic Regression and Random Forest. Logistic regression was our initial baseline to see how the data might behave with a classifier. Based on the confusion matrix, logistic regression tended to guess certain values at a far greater frequency, classifying most data points as either a 1, 4, 7, or 9. We then wanted to try something more complex that could handle potentially non-linearly separable data so we used a Random Forest Classifier. For this case, it was very clear that the model was guessing given a more even distribution of predictions in the confusion matrix.
+
+The performance of our models fell significantly short of expectations, with accuracy and F1 scores barely exceeding random guessing. The Logistic Regression model achieved an accuracy of 11.15% and an F1 score of 9.79%, while the Random Forest model yielded 9.77% accuracy and a 9.72% F1 score, both hovering around the baseline for random classification among 10 classes. These results suggest that the models were essentially guessing, with no significant pattern discerned in the predictions.
+
+These models were limited by the overly simplified representation of EEG signals. Reducing each time series to basic summary statistics (max, min, mean, range) likely discarded essential temporal information, which is crucial in brainwave analysis. 
+
+In the future, we plan to make several enhancements. First, we will incorporate Fourier Transforms to shift EEG data into the frequency domain, allowing us to capture patterns in specific frequency bands associated with cognitive states. By applying PCA on these Fourier-transformed features, we hope to retain important patterns while reducing dimensionality. Additionally, we plan to explore Recurrent Neural Networks (RNNs) or Long Short-Term Memory networks (LSTMs) as they are designed for time-series data and can capture sequential dependencies, as logistic regression and random forest are used for independent data points.
 
 # Gantt Chart:
 
