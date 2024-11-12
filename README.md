@@ -1,37 +1,21 @@
-# Introduction/Background:
-
-### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022 
+### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
 
-Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. The dataset includes 4 main sub-datasets for each EEG machine used. Within each subset, there is a “digit” feature corresponding to the digit shown, and all other features are brain activity trackers of various parts of the 19 sections of the brain. There are approximately 100-1,000 tracking channels (each its own feature/column) for each brain region or electrode site (i.e. right frontal region), with at least 10 different electrode sites being monitored.
+Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. The dataset includes 4 main sub-datasets for each EEG machine used. For each subset, there exists a “digit” feature corresponding to the digit shown, an “event id” to catalog unique number-showing events, a “brain region” to map the location from where an electrode made its reading, and ~250 columns of time series data sampled at 128 Hz that correspond to the electric intensities measured from the given “brain region”. Therefore, for our purposes, a datapoint can be considered all rows which share the same “event id” which is 19 for the full data set and 5 for the exploratory data.
+
 
 ### Problem Definition
 We seek to develop a more accurate system of decoding brain signals associated with specific visual stimuli, in this case related to numerical digits. Through our model, it will be possible to predict what digit is being seen by the candidate given their brain activity.
 This research will be applicable in proving the feasibility of brain-computer interfaces (BCI’s), which have immense potential for improving quality of life for individuals experiencing disabilities in physical or verbal communication. When methods such as typing, speaking, or gesture-based systems are inaccessible, these BCIs that solely rely on brain activity could minimize the accessibility gap.
 
+### Methods
+Because the electrode data is formatted as a time series, the feature columns did not directly correspond to a measurable feature. Thus, classical feature reduction techniques such as PCA would not be helpful in determining which “time slices” are most valuable to analyze. Conversely, it would make more sense to consider all “time slices” from a given electrode reading during an event. Therefore, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range. Following, because a datapoint can be characterized as all rows that share an “event id”, we further preprocessed the data by concatenating rows from different brain regions that share an “event id.” 
 
+Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression, Random Forest, and Gradient Boosting supervised learning models on the preprocessed data.
 
-# Proposed Solution:
+### Results and Discussion
 
-### Data Preprocessing Methods:
-1. Feature Scaling: EEG data has varying amplitude ranges, so normalization (e.g., MinMaxScaler from scikit-learn) is essential for standardization. [7]
-2. Dimensionality Reduction: EEG data often has high dimensionality. Applying Principal Component Analysis (PCA from scikit-learn) reduces noise and prevents overfitting while maintaining key variance. [8]
-3. Aims to reduce the frequency of noisy data that does not pertain to classifying digits or dealing with a class imbalance for one particular digit. [9]
-
-
-### Machine Learning Algorithms:
-Because the dataset features labels that enable supervised learning, some key classification algorithms include:
-1. Random Forest Generator: Creates a multitude of decision trees that all form their own conclusion, where results are chosen based on majority [10]. The algorithm handles non-linearities well and resists overfitting, making it ideal for complex EEG data with high dimensionalities.
-2. XGBoost Regressor: Adds on smaller learners sequentially, reducing the error in steps. XGBoost is efficient and can handle large datasets with high accuracy. However, tuning models such as XGBoost can be trickier, with the number of hyperparameters.[11]
-3. Support Vector Regression: Searches for a hyperplane to fit the majority of the points. It is strong against outliers, an effective attribute due to the EEG’s/brain’s random activity [12].
-
-
-
-# Potential Results and Discussion:
-
-Foremost, we seek to design a high efficacy model. Because our problem manifests as classification, accuracy can be ensured by maximizing accuracy score (both per-class and overall) and top-k accuracy score (all > 85%), which boosts usability. Similarly, considering the use case in high-impact environments, mitigating false positives and negatives can be ensured by maximizing precision, recall, and F1 scores (all > 85%).
-
-From a sustainability standpoint, we seek to design a light-weight model: minimizing model size reduces energy expenditure. Ethically, we seek for the model to be generalizable; not available to just those with resources to acquire custom training data.
+/* TODO */
 
 # Gantt Chart:
 
