@@ -1,3 +1,10 @@
+# Directories/Files:
+/dir/: Root folder for all other files and folders for the project 
+/dir/data/: Folder that stores the downloaded .txt data files
+/dir/models.py: Intializes and defines run methods for ML models
+/dir/requirements.txt: Defines package/library dependencies 
+/dir/testing.ipynb: Jupyter notebook that includes data cleaning, feature engineering/reduction, and training/testing the ML models on the cleaned data frame
+
 # Introduction/Background:
 
 ### Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022 
