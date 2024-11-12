@@ -27,13 +27,13 @@ Post preprocessing, we determined a datapoint to be composed of the max, min, me
 Accuracy Score: 11.15%
 F1 Score: 9.79%
 
-![logistic](https://github.com/johannesq23/johannesq23.github.io/blob/main/Logistic%20Regression%20Confusion%20Matrix.png)
+![logistic](http://johannesq23.github.io/logistic_regression_matrix)
 
 ### Random Forest:
 Accuracy: 9.77%
 F1 Score: 9.72%
 
-![randomforest](https://github.com/johannesq23/johannesq23.github.io/blob/main/Random%20Forest%20Confusion%20Matrix.png)
+![randomforest](http://johannesq23.github.io/random_forest_matrix)
 
 We tested our data on two supervised classifiers: Logistic Regression and Random Forest. Logistic regression was our initial baseline to see how the data might behave with a classifier. Based on the confusion matrix, logistic regression tended to guess certain values at a far greater frequency, classifying most data points as either a 1, 4, 7, or 9. We then wanted to try something more complex that could handle potentially non-linearly separable data so we used a Random Forest Classifier. For this case, it was very clear that the model was guessing given a more even distribution of predictions in the confusion matrix.
 
