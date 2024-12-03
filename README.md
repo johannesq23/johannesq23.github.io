@@ -11,15 +11,18 @@ For each “event,” there will be one row of time-series data corresponding to
 
 For this midterm checkpoint, we have elected to focus on one EEG machine for a preliminary understanding of the problem space -- the Emotiv Insight machine. This machine collects 256 data samples at each electrode channel over the 2-second time interval, corresponding to a frequency of 128 Hz. This data collection happens simultaneously at 5 electrode channels, so each “event id” will correspond to 5 rows of time-series data. Future development will extend the model from the Insight machine to the other three EEG machines. 
 
+
 ## Problem Definition
 We seek to develop an accurate system of decoding brain signals associated with specific visual stimuli, in this case related to numerical digits. Each digit is expected to generate unique amplitudes and intensity patterns in each electrode channel, so a machine learning model can be developed to predict the digit seen based on this time-series data. Through our model, it will be possible to predict what digit is being seen by the candidate given their brain activity.
 
 This research will be applicable in proving the feasibility of brain-computer interfaces (BCI’s), which have immense potential for improving quality of life for individuals experiencing disabilities in physical or verbal communication. Brain-computer interfaces operate by translating electrical signals from the brain into commands that can be applied to a computer or other device [3]. As a result, when methods such as typing, speaking, or gesture-based systems are inaccessible, BCIs that solely rely on brain activity could minimize this accessibility gap.
 
 ## Methods
-Because the electrode data is formatted as a time series, the feature columns did not directly correspond to a measurable feature. Thus, classical feature reduction techniques such as PCA would not be helpful in determining which “time slices” are most valuable to analyze. Conversely, it would make more sense to consider all “time slices” from a given electrode reading during an event. Therefore, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range. Following, because a datapoint can be characterized as all rows that share an “event id”, we further preprocessed the data by concatenating rows from different brain regions that share an “event id.” 
+Previously, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range since data points can be characterized as all rows that share an “event id”. We then trained Logistic Regression, Random Forest, and Gradient Boosting supervised learning models on the preprocessed data.
 
-Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression and Random Forest supervised learning models on the preprocessed data.
+However we took a vastly different approach this time as all models with varying amounts of hyperparameter tuning were essentially guessing. We switched Logistic Regression with a Convolutional Neural Network where we used the raw data since it handles time-series well. For the CNN, we took the raw data, standardized it for the neural network, and imputed the missing values with column means. 
+
+However for the Random Forest and Gradient Boosting models, we kept the critical statistics but also added in the raw data points so each row became one brain reading with all region reading and statistics. This was also standardized, and for Random Forest, performance was boosted after using a PCA to reduce the number of components to 4.
 
 ## Results and Discussion
 
@@ -64,3 +67,9 @@ In the future, we plan to make several enhancements. First, we will incorporate 
 [5] S. Tiwari, S. Goel, and A. Bhardwaj, "EEG Signals to Digit Classification Using Deep Learning-Based One-Dimensional Convolutional Neural Network," Arabian Journal for Science and Engineering, vol. 48, pp. 9675–9691, 2023, doi: 10.1007/s13369-022-07313-3.
 
 [6] N. C. Mahapatra and P. Bhuyan, "EEG-based classification of imagined digits using a recurrent neural network," Journal of Neural Engineering, vol. 20, no. 2, p. 026040, Apr. 2023, doi: 10.1088/1741-2552/acc976.
+
+[7] Ibm. (2024, August 23). What is Random Forest?. IBM. https://www.ibm.com/topics/random-forest. 
+
+[8] What is XGBoost?. NVIDIA Data Science Glossary. (n.d.). https://www.nvidia.com/en-us/glossary/xgboost/ 
+
+[9] GeeksforGeeks. (2023, January 30). Support vector regression (SVR) using linear and non-linear kernels in Scikit learn. https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/ 
