@@ -1,9 +1,15 @@
 ## Introduction and Background
-https://huggingface.co/datasets/DavidVivancos/MindBigData2022
+Our Data Set: https://huggingface.co/datasets/DavidVivancos/MindBigData2022
 
 Interpreting brain signals as responses to visual stimuli is an exciting topic of research, with a wide variety of applications in healthcare [1], education [2], and entertainment [3]. These signals can be easily obtained using electroencephalograms (EEG), which employ signal processing techniques like Fourier transforms and spectral analysis to generate meaningful interpretations [4]. Numerical digits are commonly chosen as stimuli in this research because they are discrete, limited in number (0-9), and universally understood [5, 6].
 
 Our data set was developed by David Vivancos, who used 4 different EEG machines to track activity in 19 sections of his own brain upon being shown an image of a single digit at a time. These images ranged from 0-9, or no digit as a control. EEG machines obtain data by placing electrodes, known as “channels,” on different brain regions and recording voltage fluctuations as a time series over a 2-second time interval. Depending on the machine, between 256 and 1024 data samples will be taken simultaneously at each channel during this time period.
+
+The dataset includes 4 main sub-datasets for each EEG machine used. For each subset, there exists a “digit” feature corresponding to the digit shown, an “event id” to catalog unique number-showing events, a “brain region” to map the location from where an electrode made its reading. Finally, there are 256-1024 columns of time series data sampled that correspond to the amplitudes of electric intensities measured from the given “brain region”.
+
+For each “event,” there will be one row of time-series data corresponding to each electrode channel. Therefore, for our purposes, a datapoint can be considered all rows which share the same “event id” -- 19 for the full data set.
+
+For this midterm checkpoint, we have elected to focus on one EEG machine for a preliminary understanding of the problem space -- the Emotiv Insight machine. This machine collects 256 data samples at each electrode channel over the 2-second time interval, corresponding to a frequency of 128 Hz. This data collection happens simultaneously at 5 electrode channels, so each “event id” will correspond to 5 rows of time-series data. Future development will extend the model from the Insight machine to the other three EEG machines. 
 
 The dataset includes 4 main sub-datasets for each EEG machine used. For each subset, there exists a “digit” feature corresponding to the digit shown, an “event id” to catalog unique number-showing events, a “brain region” to map the location from where an electrode made its reading. Finally, there are 256-1024 columns of time series data sampled that correspond to the amplitudes of electric intensities measured from the given “brain region”.
 
@@ -17,9 +23,11 @@ We seek to develop an accurate system of decoding brain signals associated with 
 This research will be applicable in proving the feasibility of brain-computer interfaces (BCI’s), which have immense potential for improving quality of life for individuals experiencing disabilities in physical or verbal communication. Brain-computer interfaces operate by translating electrical signals from the brain into commands that can be applied to a computer or other device [3]. As a result, when methods such as typing, speaking, or gesture-based systems are inaccessible, BCIs that solely rely on brain activity could minimize this accessibility gap.
 
 ## Methods
-Because the electrode data is formatted as a time series, the feature columns did not directly correspond to a measurable feature. Thus, classical feature reduction techniques such as PCA would not be helpful in determining which “time slices” are most valuable to analyze. Conversely, it would make more sense to consider all “time slices” from a given electrode reading during an event. Therefore, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range. Following, because a datapoint can be characterized as all rows that share an “event id”, we further preprocessed the data by concatenating rows from different brain regions that share an “event id.” 
+Previously, we preprocessed the data by reducing each time series to its core summary statistics, max, min, mean, and range since data points can be characterized as all rows that share an “event id”. We then trained Logistic Regression, Random Forest, and Gradient Boosting supervised learning models on the preprocessed data.
 
-Post preprocessing, we determined a datapoint to be composed of the max, min, mean, and range for each “brain region” for a given “event id.” We then trained Logistic Regression and Random Forest supervised learning models on the preprocessed data.
+However we took a vastly different approach this time as all models with varying amounts of hyperparameter tuning were essentially guessing. We switched Logistic Regression with a Convolutional Neural Network where we used the raw data since it handles time-series well. For the CNN, we took the raw data, standardized it for the neural network, and imputed the missing values with column means. 
+
+However for the Random Forest and Gradient Boosting models, we kept the critical statistics but also added in the raw data points so each row became one brain reading with all region reading and statistics. This was also standardized, and for Random Forest, performance was boosted after using a PCA to reduce the number of components to 4.
 
 ## Results and Discussion
 
@@ -27,13 +35,13 @@ Post preprocessing, we determined a datapoint to be composed of the max, min, me
 Accuracy Score: 11.15%
 F1 Score: 9.79%
 
-![logistic](https://github.com/johannesq23/johannesq23.github.io/blob/main/Logistic%20Regression%20Confusion%20Matrix.png)
+![logistic](./logistic_regression_matrix.png)
 
 ### Random Forest:
 Accuracy: 9.77%
 F1 Score: 9.72%
 
-![randomforest](https://github.com/johannesq23/johannesq23.github.io/blob/main/Random%20Forest%20Confusion%20Matrix.png)
+![randomforest](./random_forest_matrix.png)
 
 We tested our data on two supervised classifiers: Logistic Regression and Random Forest. Logistic regression was our initial baseline to see how the data might behave with a classifier. Based on the confusion matrix, logistic regression tended to guess certain values at a far greater frequency, classifying most data points as either a 1, 4, 7, or 9. We then wanted to try something more complex that could handle potentially non-linearly separable data so we used a Random Forest Classifier. For this case, it was very clear that the model was guessing given a more even distribution of predictions in the confusion matrix.
 
@@ -45,11 +53,11 @@ In the future, we plan to make several enhancements. First, we will incorporate 
 
 ## Gantt Chart:
 
-![gantt](http://johannesq23.github.io/gantt.png)
+![gantt](./gantt.png)
 
 ## Contribution Chart:
 
-![contribution](http://johannesq23.github.io/contributions.png)
+![contribution](./contributions.png)
 
 ## References:
 
@@ -65,14 +73,8 @@ In the future, we plan to make several enhancements. First, we will incorporate 
 
 [6] N. C. Mahapatra and P. Bhuyan, "EEG-based classification of imagined digits using a recurrent neural network," Journal of Neural Engineering, vol. 20, no. 2, p. 026040, Apr. 2023, doi: 10.1088/1741-2552/acc976.
 
-[7] Scikit-learn developers, "sklearn.preprocessing.MinMaxScaler," Scikit-learn, 2023. [Online]. Available: https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.MinMaxScaler.html
+[7] Ibm. (2024, August 23). What is Random Forest?. IBM. https://www.ibm.com/topics/random-forest. 
 
-[8] Scikit-learn developers, "sklearn.decomposition.PCA," Scikit-learn, 2023. [Online]. Available: https://scikit-learn.org/dev/modules/generated/sklearn.decomposition.PCA.html
+[8] What is XGBoost?. NVIDIA Data Science Glossary. (n.d.). https://www.nvidia.com/en-us/glossary/xgboost/ 
 
-[9] M. Adel, "Tomek Links," Medium, May 30, 2023. [Online]. Available: https://medium.com/@mahmoudadel200215/tomek-links-948ea097199e
-
-[10] Ibm. (2024, August 23). What is Random Forest?. IBM. https://www.ibm.com/topics/random-forest. 
-
-[11] What is XGBoost?. NVIDIA Data Science Glossary. (n.d.). https://www.nvidia.com/en-us/glossary/xgboost/ 
-
-[12] GeeksforGeeks. (2023, January 30). Support vector regression (SVR) using linear and non-linear kernels in Scikit learn. https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/ 
+[9] GeeksforGeeks. (2023, January 30). Support vector regression (SVR) using linear and non-linear kernels in Scikit learn. https://www.geeksforgeeks.org/support-vector-regression-svr-using-linear-and-non-linear-kernels-in-scikit-learn/ 
