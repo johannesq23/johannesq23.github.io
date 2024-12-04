@@ -32,9 +32,9 @@ However for the Random Forest and Gradient Boosting models, we kept the critical
 ## Results and Discussion
 
 ### Recurrent Neural Network (RNN):
-Accuracy Score: XX.XX%, F1 Score: XX.XX%
+Accuracy Score: 11.13%, F1 Score: 9.91%
 
-![logistic](./logistic_regression_matrix.png)
+![rnn](./rnn_matrix.png)
 
 ### Gradient Boosting:
 Accuracy Score: 31.50%, F1 Score: 27.45%
@@ -49,7 +49,8 @@ Accuracy: 31.01%, F1 Score: 27.73%
 ### Convolutional Neural Network (CNN):
 Accuracy Score: 34.00%, F1 Score: 33.06%
 
-![cnn]()
+![cnn](./CNN_matrix.jpg)
+![cnngraph](./CNN_graph.jpg)
 
 *Analysis and Comparison of Models*
 
