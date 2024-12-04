@@ -9,7 +9,7 @@ The dataset includes 4 main sub-datasets for each EEG machine used. For each sub
 
 For each “event,” there will be one row of time-series data corresponding to each electrode channel. Therefore, for our purposes, a datapoint can be considered all rows which share the same “event id” -- 19 for the full data set.
 
-For this midterm checkpoint, we have elected to focus on one EEG machine for a preliminary understanding of the problem space -- the Emotiv Insight machine. This machine collects 256 data samples at each electrode channel over the 2-second time interval, corresponding to a frequency of 128 Hz. This data collection happens simultaneously at 5 electrode channels, so each “event id” will correspond to 5 rows of time-series data. Future development will extend the model from the Insight machine to the other three EEG machines. 
+For this report, we have elected to focus on one EEG machine for a preliminary understanding of the problem space -- the Emotiv Insight machine. This machine collects 256 data samples at each electrode channel over the 2-second time interval, corresponding to a frequency of 128 Hz. This data collection happens simultaneously at 5 electrode channels, so each “event id” will correspond to 5 rows of time-series data. Future development will extend the model from the Insight machine to the other three EEG machines. 
 
 The dataset includes 4 main sub-datasets for each EEG machine used. For each subset, there exists a “digit” feature corresponding to the digit shown, an “event id” to catalog unique number-showing events, a “brain region” to map the location from where an electrode made its reading. Finally, there are 256-1024 columns of time series data sampled that correspond to the amplitudes of electric intensities measured from the given “brain region”.
 
@@ -31,25 +31,37 @@ However for the Random Forest and Gradient Boosting models, we kept the critical
 
 ## Results and Discussion
 
-### Logistic Regression:
-Accuracy Score: 11.15%
-F1 Score: 9.79%
+### Recurrent Neural Network (RNN):
+Accuracy Score: XX.XX%, F1 Score: XX.XX%
 
 ![logistic](./logistic_regression_matrix.png)
 
+### Gradient Boosting:
+Accuracy Score: 31.50%, F1 Score: 27.45%
+
+![gradientboosting](./gradient_boosting_feature_importance.png)
+
 ### Random Forest:
-Accuracy: 9.77%
-F1 Score: 9.72%
+Accuracy: 31.01%, F1 Score: 27.73%
 
 ![randomforest](./random_forest_matrix.png)
 
-We tested our data on two supervised classifiers: Logistic Regression and Random Forest. Logistic regression was our initial baseline to see how the data might behave with a classifier. Based on the confusion matrix, logistic regression tended to guess certain values at a far greater frequency, classifying most data points as either a 1, 4, 7, or 9. We then wanted to try something more complex that could handle potentially non-linearly separable data so we used a Random Forest Classifier. For this case, it was very clear that the model was guessing given a more even distribution of predictions in the confusion matrix.
+### Convolutional Neural Network (CNN):
+Accuracy Score: 34.00%, F1 Score: 33.06%
 
-The performance of our models fell significantly short of expectations, with accuracy and F1 scores barely exceeding random guessing. The Logistic Regression model achieved an accuracy of 11.15% and an F1 score of 9.79%, while the Random Forest model yielded 9.77% accuracy and a 9.72% F1 score, both hovering around the baseline for random classification among 10 classes. These results suggest that the models were essentially guessing, with no significant pattern discerned in the predictions.
+![cnn]()
 
-These models were limited by the overly simplified representation of EEG signals. Reducing each time series to basic summary statistics (max, min, mean, range) likely discarded essential temporal information, which is crucial in brainwave analysis. 
+*Analysis and Comparison of Models*
 
-In the future, we plan to make several enhancements. First, we will incorporate Fourier Transforms to shift EEG data into the frequency domain, allowing us to capture patterns in specific frequency bands associated with cognitive states. By applying PCA on these Fourier-transformed features, we hope to retain important patterns while reducing dimensionality. Additionally, we plan to explore Recurrent Neural Networks (RNNs) or Long Short-Term Memory networks (LSTMs) as they are designed for time-series data and can capture sequential dependencies, as logistic regression and random forest are used for independent data points.
+Our new iteration compared Gradient Boosting, Random Forest, and a CNN model to decode EEG signals. Gradient Boosting provided valuable insights into feature importance but lacked specificity for handling time-series EEG data. Random Forest, while efficient, delivered the lowest true accuracy and F1 scores, making it unsuitable for our application despite enhancements like PCA. The CNN’s success underscores its suitability for time-series EEG data, particularly in identifying patterns across multiple electrode channels. However, the increased complexity required significant processing power, which limited our ability to test on larger datasets. While Gradient Boosting and Random Forest offered value in terms of interpretability and efficiency, their limitations in modeling temporal dependencies emphasize the need for tailored approaches like CNNs when dealing with sequential data. These findings validate the potential of neural networks for EEG-based classification tasks, paving the way for further exploration in brain-computer interface development.
+
+*Next Steps*
+
+Our models, while much improved, were still limited by the processing power we had available. For example, we were unable to test them on larger datasets because of the amount of time and energy it would consume on our personal computers. For the future, resources like Google Colab would allow us to obtain access to more powerful GPUs for further exploration of this problem space.
+
+Additionally, all three models were limited by the overly simplified representation of EEG signals. Reducing each time series to basic summary statistics (max, min, mean, range) likely discarded essential temporal information, which is crucial in brainwave analysis.
+
+In the future, we plan to make several enhancements. First, we will incorporate Fourier Transforms to shift EEG data into the frequency domain, allowing us to capture patterns in specific frequency bands associated with cognitive states. By applying PCA on these Fourier-transformed features, we hope to retain important patterns while reducing dimensionality. Additionally, we plan to explore Long Short-Term Memory networks (LSTMs) as they are better-equipped for time-series data and can capture sequential dependencies, whereas logistic regression and random forest are used for independent data points.
 
 ## Gantt Chart:
 
